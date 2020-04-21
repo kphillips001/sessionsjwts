@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken"); // ----> npm i jsonwebtoken
 
 const Users = require("../users/users-model.js");
+const secrets = require("../api/secrets.js");
 
 router.post("/register", (req, res) => {
   let user = req.body; // username, password
@@ -55,7 +56,7 @@ function generateToken(user) {
     userId: user.id,
     username: user.username,
   };
-  const secret = process.env.JWT_SECRET || "keep it secret, keep it safe!";
+  const secret = secrets.jwtSecret;
   const options = {
     expiresIn: "1d",
   };
